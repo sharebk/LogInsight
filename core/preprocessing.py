@@ -32,3 +32,7 @@ if __name__ == "__main__":
     """
     processed_logs = preprocess_logs(sample_logs)
     pprint(processed_logs)
+    # 示例2
+    # raw_logs = open("../data/raw_logs/raw_logs.txt", "r").read()
+    # processed_logs = preprocess_logs(raw_logs)
+    # pprint(processed_logs)

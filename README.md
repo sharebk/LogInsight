@@ -1,8 +1,9 @@
 # LogInsight 基于大语言模型的准确而可解释的日志故障诊断方法
-> 项目思路来源: https://mp.weixin.qq.com/s/IfdhN2vnNXvYWnZZfoe-KA
+> - 项目思路来源: https://mp.weixin.qq.com/s/IfdhN2vnNXvYWnZZfoe-KA
+> - 文章内容: [reference.md](reference.md)
 
-> 关键依赖：Python 3.8+, scikit-learn 1.2+, PyTorch 2.0+, HuggingFace Transformers 4.28+
-> 硬件建议：预处理阶段需16GB内存，模型微调需A100 40GB GPU
+> - 关键依赖：Python 3.8+, scikit-learn 1.2+, PyTorch 2.0+, HuggingFace Transformers 4.28+ 
+> - 硬件建议：预处理阶段需16GB内存，模型微调需A100 40GB GPU
 
 # 简介
 **LogInsight - 智能化日志故障诊断系统**
@@ -71,4 +72,10 @@ uv venv .venv --python 3.10   # 指定python版本
 source .venv/bin/activate
 uv init
 uv add scikit-learn
+```
+
+##
+```shell
+# 基于RFC模板生成10万行日志（含结构化字段）  
+python3 -c "import syslog_gen; syslog_gen.export('syslog.txt', lines=100000, format='rfc5424')"  
 ```
