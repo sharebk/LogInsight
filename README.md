@@ -76,6 +76,6 @@ uv add scikit-learn
 
 ##
 ```shell
-# 基于RFC模板生成10万行日志（含结构化字段）  
-python3 -c "import syslog_gen; syslog_gen.export('syslog.txt', lines=100000, format='rfc5424')"  
+# 基于RFC模板生成1万行日志（RFC标准的日志格式）
+python utils/log_generator.py
 ```

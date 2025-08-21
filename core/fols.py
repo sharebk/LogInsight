@@ -13,7 +13,7 @@ def generate_fols(structured_logs):
     :return: 故障相关的核心日志信息
     """
     # 提取日志消息
-    log_messages = [log['message'] for log in structured_logs]
+    log_messages = [log['message'] for log in structured_logs if log['message']]
 
     # 使用TF-IDF向量化日志消息
     vectorizer = TfidfVectorizer()

@@ -14,8 +14,8 @@ def fine_tune_model(dataset_path, base_model_name="gpt2"):
     :return: 微调后的模型
     """
     # 加载基础模型和分词器
-    tokenizer = AutoTokenizer.from_pretrained(base_model_name)
-    model = AutoModelForCausalLM.from_pretrained(base_model_name)
+    tokenizer = AutoTokenizer.from_pretrained(pretrained_model_name_or_path=base_model_name)
+    model = AutoModelForCausalLM.from_pretrained(pretrained_model_name_or_path=base_model_name)
 
     # 配置LoRA
     lora_config = LoraConfig(
