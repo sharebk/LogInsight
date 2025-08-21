@@ -1,4 +1,4 @@
-# LogInsight 基于大语言模型的准确而可解释的日志故障诊断方法
+# LogInsight 基于大模型的日志故障诊断方法
 > - 项目思路来源: https://mp.weixin.qq.com/s/IfdhN2vnNXvYWnZZfoe-KA
 > - 文章内容: [reference.md](reference.md)
 
@@ -6,8 +6,7 @@
 > - 硬件建议：预处理阶段需16GB内存，模型微调需A100 40GB GPU
 
 # 简介
-**LogInsight - 智能化日志故障诊断系统**
-* 基于大语言模型的准确而可解释的日志故障诊断方法
+**LogInsight - 基于大模型的日志故障诊断方法**
 * 核心架构：预处理 → 日志摘要 → 知识注入 → 模型微调
 
 ## LogInsight的整体框架包括四个主要步骤：
