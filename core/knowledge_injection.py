@@ -7,9 +7,9 @@ from time import sleep
 3. 知识注入模块，结合GPT-4生成解释并由专家校验。
 """
 
-OPENAI_BASE_URL="http://10.2.32.201:8080/v1"
-OPENAI_API_KEY="bef71d1b-cb00-40b0-974f-4a07a8c0a17c"
-OPENAI_MODEL_NAME="Qwen2_5-Coder-32B-Instruct"
+OPENAI_BASE_URL=""
+OPENAI_API_KEY=""
+OPENAI_MODEL_NAME="gpt-4"
 
 client = OpenAI(
     base_url=OPENAI_BASE_URL,
