@@ -15,7 +15,9 @@ def preprocess_logs(raw_logs):
     structured_logs = []
     for log in raw_logs.split('\n'):
         match = re.match(pattern, log.strip())
-        if match:
+        # 只保留有效的日志行
+        # if match:
+        if match and match.group(10):
             structured_logs.append({
                 'timestamp': match.group(1),
                 'level': match.group(2),

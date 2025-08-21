@@ -53,6 +53,27 @@ graph TD
  - 混合精度训练：减少显存消耗
  - 灾难遗忘防护：Layer-wise学习率衰减
 
+
+## 使用方法
+```shell
+# 1. 预处理日志
+with open("data/raw_logs/rfc_logs.log", "r") as file:
+    raw_logs = file.read()
+structured_logs = preprocess_logs(raw_logs)
+
+# 2. 生成故障日志摘要
+    core_logs = generate_fols(structured_logs)
+
+# 3. 知识注入
+explanations = generate_explanations(core_logs)
+# validated_explanations = validate_explanations(explanations, [True] * len(explanations))  # 模拟专家反馈
+write_dataset_to_file(explanations)
+
+# 4. 模型微调
+# dataset_path = "./data/knowledge_base/log_diagnosis_dataset.jsonl"
+# model = fine_tune_model(dataset_path=dataset_path)
+    
+```
 ## 部署建议
 日志处理流水线：
 ```shell

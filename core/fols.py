@@ -1,3 +1,5 @@
+from pprint import pprint
+
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import KMeans
 import numpy as np
@@ -52,6 +54,6 @@ if __name__ == "__main__":
 
     ## 示例2:
     from preprocessing import preprocess_logs
-    sample_logs = preprocess_logs(open("../data/raw_logs/raw_logs.txt", "r").read())
+    sample_logs = preprocess_logs(open("../data/raw_logs/rfc_logs.log", "r").read())
     fols_logs = generate_fols(sample_logs)
-    print(fols_logs)
+    pprint(fols_logs)

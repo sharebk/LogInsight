@@ -1,5 +1,8 @@
-from openai import OpenAI
+import json
 
+from openai import OpenAI
+from tqdm import tqdm
+from time import sleep
 """
 3. 知识注入模块，结合GPT-4生成解释并由专家校验。
 """
@@ -16,7 +19,7 @@ client = OpenAI(
 
 def generate_explanations(logs):
     """
-    使用GPT-4生成日志解释。
+    使用 LLM 生成日志解释。
     :param logs: 日志列表
     :return: 生成的解释列表
     """
@@ -83,8 +86,10 @@ def generate_explanations(logs):
     - `Environment variable not set`  
     - `Certificate expired`
     """
+    print("使用大模型生成日志解释")
     explanations = []
-    for log in logs:
+    for log in tqdm(logs):
+        sleep(0.25)
         # prompt = f"Explain the following log message: {log['message']}"
         prompt = f"""
         你是一位专业的日志故障诊断专家，负责基于大语言模型为给定的日志数据提供准确且可解释的故障诊断建议。
@@ -125,7 +130,7 @@ def generate_explanations(logs):
         )
         explanations.append({
             'log': log,
-            'explanation': response.choices[0].message.content
+            'explanation': response.choices[0].message.content if response else ""
         })
     return explanations
 
@@ -137,32 +142,60 @@ def validate_explanations(explanations, expert_feedback):
     :param expert_feedback: 专家反馈
     :return: 校验后的解释列表
     """
+    print("专家校验生成的解释")
     validated_explanations = []
     for idx, explanation in enumerate(explanations):
         if expert_feedback[idx]:
             validated_explanations.append(explanation)
     return validated_explanations
 
+def write_dataset_to_file(explanations, file_path):
+    """
+    将解释写入文件。
+    data/knowledge_base/log_diagnosis_dataset.json
+    :param explanations:
+    :return:
+    """
+    with open(file_path, 'w') as f:
+        for explanation in explanations:
+            data_line = json.dumps({"messages": [{"role": "user", "content": explanation['log']['message']},
+                                                 {"role": "assistant", "content": explanation['explanation']}]},
+                                   ensure_ascii=False)
+            f.write(data_line+"\n")
+
 
 if __name__ == "__main__":
     # 示例用法
     fols_logs = [
-        {'timestamp': '2025-08-19 10:00:05', 'level': 'ERROR', 'message': 'Failed to connect to database'}
+        {'client_ip': '122.44.77.239',
+         'level': 'ERROR',
+         'message': 'Database connection failed',
+         'method': 'POST',
+         'path': '/api/v1/products',
+         'request_id': '902e3eed-c119-469e-88c1-ca939255f28b',
+         'response_time': 286,
+         'service': 'notification-service',
+         'status_code': 200,
+         'timestamp': '2025-08-21T02:09:27.285420'},
     ]
     # 调用 generate_explanations 函数
     explanations = generate_explanations(fols_logs)
-    # print(explanations)
+    print(explanations)
+    file_path = "../data/knowledge_base/log_diagnosis_dataset.jsonl"
+    write_dataset_to_file(explanations, file_path)
 
     # # 示例2
     # from preprocessing import preprocess_logs
     # from fols import generate_fols
-    # sample_logs = preprocess_logs(open("../data/raw_logs/raw_logs.txt", "r").read())
+    # sample_logs = preprocess_logs(open("../data/raw_logs/rfc_logs.log", "r").read())
     # fols_logs = generate_fols(sample_logs)
     # # 调用 generate_explanations 函数
     # explanations = generate_explanations(fols_logs)
-    # # print(explanations)
+    # print(explanations)
+    # file_path = "../data/knowledge_base/log_diagnosis_dataset.jsonl"
+    # write_dataset_to_file(explanations, file_path)
 
     ## 模拟专家反馈
-    expert_feedback = [True, True, True]
-    validated = validate_explanations(explanations, expert_feedback)
-    print(validated)
+    # expert_feedback = [True, True, True]
+    # validated = validate_explanations(explanations, expert_feedback)
+    # print(validated)
