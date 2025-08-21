@@ -44,6 +44,7 @@ LogInsight/
  - 自适应聚类：基于日志密度动态调整参数
  - 冗余控制：TF-IDF权重+位置加权
 3. 知识注入流程
+ - 日志背景信息检索：结合知识库获取日志对应的影响范围
  - 构建训练数据集
  - 专家评估数据集质量
 4. 高效微调方案
@@ -78,10 +79,16 @@ write_dataset_to_file(explanations, file_path)
 ```
 
 ## 数据示例
-日志文件示例:
+- 日志文件示例:
 ![rfc_logs.png](docs/rfc_logs.png)
-数据集示例:
+- 数据集示例:
 ![log_diagnosis_dataset.png](docs/log_diagnosis_dataset.png)
+- [log_knowledge.jsonl](data/knowledge_base/log_knowledge.jsonl)字段说明:
+> 这是日志内容对应的知识文档，包括：系统来源、原因分析、影响范围等
+
+| message | system       | cause   | impact  | solution    |
+|---------|--------------|---------|---------|-------------|
+| 日志内容    | 标识日志来源的系统或模块 | 描述可能的原因 | 说明影响的范围 | 提供解决方案或排查步骤 |
 
 ## 二次开发
 ```shell
@@ -96,8 +103,10 @@ uv init
 uv add scikit-learn
 ```
 
-##
+## 工具
 ```shell
 # 基于RFC模板生成1万行日志（RFC标准的日志格式）
 python utils/log_generator.py
 ```
+
+## 版本记录
