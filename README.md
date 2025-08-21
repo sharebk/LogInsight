@@ -56,18 +56,22 @@ graph TD
 
 ## 使用方法
 ```shell
+python main.py
+
+
 # 1. 预处理日志
 with open("data/raw_logs/rfc_logs.log", "r") as file:
     raw_logs = file.read()
 structured_logs = preprocess_logs(raw_logs)
 
 # 2. 生成故障日志摘要
-    core_logs = generate_fols(structured_logs)
+core_logs = generate_fols(structured_logs)
 
 # 3. 知识注入
 explanations = generate_explanations(core_logs)
 # validated_explanations = validate_explanations(explanations, [True] * len(explanations))  # 模拟专家反馈
-write_dataset_to_file(explanations)
+file_path = "./data/knowledge_base/log_diagnosis_dataset.jsonl"
+write_dataset_to_file(explanations, file_path)
 
 # 4. 模型微调
 # dataset_path = "./data/knowledge_base/log_diagnosis_dataset.jsonl"

@@ -143,6 +143,7 @@ def validate_explanations(explanations, expert_feedback):
     :return: 校验后的解释列表
     """
     print("专家校验生成的解释")
+    # TODO: 待实现专家校验逻辑
     validated_explanations = []
     for idx, explanation in enumerate(explanations):
         if expert_feedback[idx]:

@@ -26,6 +26,7 @@ def main():
     write_dataset_to_file(explanations, file_path)
 
     # 4. 模型微调
+    # TODO: 待实现模型微调功能，从文件中读取数据集，进行模型微调
     # dataset_path = "./data/knowledge_base/log_diagnosis_dataset.jsonl"
     # model = fine_tune_model(dataset_path=dataset_path)
 
