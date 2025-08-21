@@ -61,5 +61,5 @@ def fine_tune_model(dataset_path, base_model_name="gpt2"):
 
 if __name__ == "__main__":
     # 示例用法
-    model = fine_tune_model("../data/knowledge_base/log_diagnosis_dataset.json")
+    model = fine_tune_model("../data/knowledge_base/log_diagnosis_dataset.jsonl")
     print("Model fine-tuning completed!")

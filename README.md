@@ -27,10 +27,13 @@ LogInsight/
 │   └── fine_tuning.py            # 4. 模型微调
 ├── data/
 │   ├── raw_logs/                 # 原始日志
-│   └── knowledge_base/           # 校验后知识库
+│   └── knowledge_base/           # 校验后知识库,训练数据集
+├── docs                          # 截图/说明文件
+├── utils                          # 工具
+│   └── log_generator.py           # 日志生成文件
 ├── config.py                     # 正则模式/API密钥等配置
-├── train.py                      # 训练入口
-└── main.py                       # 诊断服务入口
+├── inference.py                  # 模型调用
+└── main.py                       # 入口文件
 ```
 
 ## 关键技术实现要点
@@ -41,12 +44,8 @@ LogInsight/
  - 自适应聚类：基于日志密度动态调整参数
  - 冗余控制：TF-IDF权重+位置加权
 3. 知识注入流程
-graph TD
-    A[原始摘要] --> B(GPT-4生成解释)
-    B --> C{专家校验}
-    C -->|通过| D[知识库]
-    C -->|拒绝| E[标注修正]
-    E --> B
+ - 构建训练数据集
+ - 专家评估数据集质量
 4. 高效微调方案
  - LoRA参数配置：聚焦注意力机制层
  - 混合精度训练：减少显存消耗
@@ -77,13 +76,12 @@ write_dataset_to_file(explanations, file_path)
 # model = fine_tune_model(dataset_path=dataset_path)
     
 ```
-## 部署建议
-日志处理流水线：
-```shell
-cd core
-python preprocessing.py --input syslog.txt --output parsed.json
-python fols.py --input parsed.json --ratio 0.3
-```
+
+## 数据示例
+日志文件示例:
+![rfc_logs.png](docs/rfc_logs.png)
+数据集示例:
+![log_diagnosis_dataset.png](docs/log_diagnosis_dataset.png)
 
 ## 二次开发
 ```shell
