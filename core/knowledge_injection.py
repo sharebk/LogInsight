@@ -1,15 +1,16 @@
+import os
 import json
-
+from dotenv import load_dotenv
 from openai import OpenAI
 from tqdm import tqdm
 from time import sleep
 """
 3. 知识注入模块，结合GPT-4生成解释并由专家校验。
 """
-
-OPENAI_BASE_URL=""
-OPENAI_API_KEY=""
-OPENAI_MODEL_NAME="gpt-4"
+load_dotenv()  # 默认加载项目根目录的.env文件
+OPENAI_BASE_URL=os.getenv("OPENAI_BASE_URL")
+OPENAI_API_KEY=os.getenv("OPENAI_API_KEY")
+OPENAI_MODEL_NAME=os.getenv("OPENAI_MODEL_NAME")
 
 client = OpenAI(
     base_url=OPENAI_BASE_URL,
@@ -182,8 +183,8 @@ if __name__ == "__main__":
     # 调用 generate_explanations 函数
     explanations = generate_explanations(fols_logs)
     print(explanations)
-    file_path = "../data/knowledge_base/log_diagnosis_dataset.jsonl"
-    write_dataset_to_file(explanations, file_path)
+    # file_path = "../data/knowledge_base/log_diagnosis_dataset.jsonl"
+    # write_dataset_to_file(explanations, file_path)
 
     # # 示例2
     # from preprocessing import preprocess_logs

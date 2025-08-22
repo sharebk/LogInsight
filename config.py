@@ -1,7 +1,3 @@
-# 模型配置
-# OPENAI_BASE_URL=""
-# OPENAI_API_KEY=""
-# OPENAI_MODEL_NAME=""
 
 # 日志分析系统的常见故障模式
 known_fault_patterns = {
